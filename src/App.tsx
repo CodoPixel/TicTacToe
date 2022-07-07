@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useEffect} from 'react';
 import './App.css';
+import Game from "./components/Game";
+import useTicTacToe from "./hooks/useTicTacToe";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    const [gameState, handler, winner, resetGame] = useTicTacToe();
+
+    useEffect(() => {
+        if (winner !== undefined) {
+            console.log("winner is", winner);
+        }
+    }, [winner]);
+
+    return <div className="container">
+        <Game
+            gameState={gameState}
+            handler={handler}
+        />
+        <button onClick={resetGame}>Reset game</button>
     </div>
-  );
 }
 
 export default App;
